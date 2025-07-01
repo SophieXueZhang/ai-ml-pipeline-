@@ -1,76 +1,62 @@
-# AI项目 - 本地开发 + Colab GPU 训练
+# AI ML Pipeline - 本地开发 + Colab GPU
 
-这个项目支持本地开发和Colab GPU训练的无缝结合。
+这个项目让您可以在本地编写和管理代码，同时利用Google Colab的免费GPU资源进行模型训练和推理。
 
-## 🚀 快速开始
+## 快速开始
 
-### 1. 本地开发流程
+### 1. 本地环境设置
 
 ```bash
-# 编辑代码
-vim your_code.py
+# 安装基础依赖
+pip install -r requirements.txt
 
-# 提交更改
-git add .
-git commit -m "your changes"
-git push
+# 设置开发环境
+python setup_dev_env.py
 ```
 
-### 2. Colab GPU 训练
+### 2. Colab连接方式
 
-1. 打开 `colab_template.ipynb`
-2. 上传到 Google Colab
-3. 修改第2个代码块中的 `REPO_URL` 为你的GitHub仓库地址
-4. 在 Runtime → Change runtime type 中选择 GPU
-5. 运行所有代码块
+#### 方式一：文件同步 (推荐)
+1. 运行 `colab_sync.ipynb` 在Colab中
+2. 自动同步本地代码到Colab
+3. 在Colab中使用GPU执行训练
 
-## 📁 项目结构
+#### 方式二：SSH隧道连接
+1. 使用 `colab_ssh_setup.ipynb` 建立SSH连接
+2. 直接从本地IDE连接到Colab环境
+
+#### 方式三：Jupyter远程连接
+1. 在Colab启动Jupyter服务器
+2. 本地通过端口转发连接
+
+## 项目结构
 
 ```
-ai/
-├── healthcare insurance/          # 医疗保险ML项目
-│   ├── phase1_environment/       # 环境设置
-│   ├── phase2_classification/    # 文档分类
-│   ├── phase3_extraction/        # 信息提取
-│   ├── phase4_demo/             # 演示应用
-│   └── requirements.txt         # 项目依赖
-├── lora/                        # LoRA相关实验
-├── colab_template.ipynb         # Colab模板
-├── requirements.txt             # 根目录依赖
-└── README.md                    # 本文档
+ai-ml-pipeline/
+├── src/                 # 本地开发代码
+├── notebooks/           # Colab笔记本
+├── configs/            # 配置文件
+├── data/               # 数据文件
+├── models/             # 模型文件
+├── colab_templates/    # Colab模板
+└── utils/              # 工具函数
 ```
 
-## 🔧 设置GitHub仓库
+## 使用说明
 
-1. 在GitHub创建新仓库
-2. 添加远程仓库：
-   ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-   git branch -M main
-   git push -u origin main
-   ```
+### 本地开发
+- 在 `src/` 目录下编写您的ML代码
+- 使用 `configs/` 管理不同的训练配置
+- 本地测试和调试小规模代码
 
-## 💡 使用技巧
+### Colab执行
+- 使用模板笔记本自动同步代码
+- 利用Colab的T4/A100 GPU进行训练
+- 结果自动保存回本地
 
-- **私有仓库**: 使用Personal Access Token替换URL中的用户名密码
-- **大文件**: 数据集和模型权重存储在Google Drive，不要提交到Git
-- **开发循环**: 本地改代码 → `git push` → Colab运行「克隆/更新代码」→ GPU训练
-- **会话管理**: Colab 12小时后断开，重要结果保存到Drive
-
-## 🎯 主要功能
-
-### Healthcare Insurance项目
-- 文档分类（DiT模型）
-- 信息提取（LayoutLM）
-- Web演示界面
-- 数据验证工具
-
-### LoRA实验
-- LLaVA模型微调
-- 环境配置脚本
-
-## 📚 更多资源
-
-- [Colab GPU使用指南](https://colab.research.google.com/notebooks/gpu.ipynb)
-- [Git基础教程](https://git-scm.com/docs/gittutorial)
-- [GitHub Personal Access Token设置](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) 
+## 特性
+- 🚀 无缝的本地-Colab工作流
+- 🔧 自动代码同步
+- 📊 实时训练监控
+- �� 自动模型保存
+- 🎯 多GPU支持 
